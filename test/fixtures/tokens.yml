@@ -1,9 +1,10 @@
 # == Schema Information
 #
-# Table name: devices
+# Table name: tokens
 #
 #  id         :integer          not null, primary key
-#  name       :string(255)
+#  code       :string(255)      not null
+#  device_id  :integer          not null
 #  created_at :datetime
 #  updated_at :datetime
 #
@@ -11,7 +12,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
+  code: MyString
+  device_id: 
 
 two:
-  name: MyString
+  code: MyString
+  device_id: 

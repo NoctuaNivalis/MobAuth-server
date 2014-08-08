@@ -40,3 +40,6 @@ gem 'spring',        group: :development
 
 # Use erd for automatic ER diagrams
 gem 'erd'
+
+# Use annotate to place relation annotations in the model files.
+gem 'annotate'
