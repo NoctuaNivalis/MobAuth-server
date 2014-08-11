@@ -3,15 +3,16 @@
   <%= form_for [object.user, object], remote: true do |f| %>
     <td></td>
     <td><%= f.text_field :name %></td>
-    <td><%= f.button button_name %></td>
+    <td><%= f.button "Save" %></td>
     <%= javascript_tag do %>
-      var id = "#<% if button_name == "Save" %>edit_<% end %><%= dom_id(f.object) %>";
+      alert("#<%= dom_id(f.object, :edit) %>");
+      var id = "#<%= dom_id(f.object, :edit) %>";
       var inputs = $(id).parent().find('input');
 
       $(id).parent().find('button').on('click', function(e) {
         e.preventDefault();
         $(id).append(inputs.clone());
-        $(id).append('<input type="hidden" name="_method" value="<%= (button_name == "Save") ? 'put' : 'post' %>">');
+        $(id).append('<input type="hidden" name="_method" value="put">');
         $(id).submit();
       });
     <% end %>

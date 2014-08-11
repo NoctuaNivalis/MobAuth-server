@@ -14,7 +14,7 @@ interface.</p>
   </thead>
   <tbody>
   <%= render @devices %>
-  <%= render "form", object: @user.devices.build, button_name: "Add" %>
+  <%= render "new", object: @user.devices.build %>
   </tbody>
 </table>
 
