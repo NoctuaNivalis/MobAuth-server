@@ -5,7 +5,6 @@
     <td><%= f.text_field :name %></td>
     <td><%= f.button "Save" %></td>
     <%= javascript_tag do %>
-      alert("#<%= dom_id(f.object, :edit) %>");
       var id = "#<%= dom_id(f.object, :edit) %>";
       var inputs = $(id).parent().find('input');
 
