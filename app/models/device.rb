@@ -6,10 +6,10 @@
 #  name       :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  user_id    :integer
 #
 
 class Device < ActiveRecord::Base
-  has_many :certificates
-  has_many :users, through: :certificate
+  belongs_to :user
   has_one :token
 end

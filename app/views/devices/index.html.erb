@@ -1,0 +1,20 @@
+
+<h1>Mobile Authentication App</h1>
+
+<p>Welcome to the webserver of the mobiel authentication app. Below, you can
+add the devices you want to link to your identity. <em>Warning!</em> In case of
+theft or loss of your device, unlink the device immediately through this
+interface.</p>
+
+<table id="devices">
+  <thead>
+    <th>Status</th>
+    <th>Device Name</th>
+    <th>Actions</th>
+  </thead>
+  <tbody>
+  <%= render @devices %>
+  <%= render "form", object: @user.devices.build, button_name: "Add" %>
+  </tbody>
+</table>
+

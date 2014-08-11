@@ -11,23 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140808112821) do
-
-  create_table "certificates", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "device_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "certificates", ["device_id"], name: "index_certificates_on_device_id"
-  add_index "certificates", ["user_id"], name: "index_certificates_on_user_id"
+ActiveRecord::Schema.define(version: 20140811093441) do
 
   create_table "devices", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
+
+  add_index "devices", ["user_id"], name: "index_devices_on_user_id"
 
   create_table "tokens", force: true do |t|
     t.string   "code",       null: false

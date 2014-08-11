@@ -1,0 +1,9 @@
+
+<tr class="device">
+  <td><%= device.name %></td>
+  <td>
+    <%= link_to "Edit", edit_user_device_path(device.user, device), remote: true %>
+    <%= link_to "Remove", user_device_path(device.user, device), remote: true, method: :delete %>
+  </td>
+</tr>
+
