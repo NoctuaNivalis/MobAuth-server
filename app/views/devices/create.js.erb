@@ -1,5 +1,4 @@
 
-$('#new_device').parent().remove();
-$('#devices tbody').append("<%= escape_javascript render @device %>");
-$('#devices tbody').append("<%= escape_javascript render "form", object: @user.devices.build, button_name: "Add" %>");
+$('#new_device')[0].reset();
+$('#new_device').parent().before("<%= escape_javascript render @device %>");
 
