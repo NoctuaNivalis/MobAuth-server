@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'users/new'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -17,7 +16,7 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  resources :users, only: [:index] do
+  resources :users, only: [:index,:new] do
     resources :devices, only: [:index, :new, :create, :edit, :update, :destroy]
   end
 
