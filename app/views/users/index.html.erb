@@ -1,9 +1,19 @@
 
-<h1>Welcome!</h1>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="page-header">
+      <h1>Welcome!</h1>
+    </div>
 
-<p>This is still an application under construction. As user management is not yet implemented, select one of the users listed below to test the application.</p>
-<p>Sign up: <%= link_to "Sign up", signup_path %></p>
+    <p>This is still an application under construction. As user management is
+    not yet implemented, select one of the users listed below to test the
+    application.</p>
+    <p>Sign up: <%= link_to "Sign up", signup_path %></p>
 
-<ul>
-  <%= render @users %>
-</ul>
+
+    <ul>
+      <%= render @users %>
+    </ul>
+  </div>
+</div>
+
