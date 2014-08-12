@@ -2,7 +2,7 @@
 <tr>
   <%= form_for [object.user, object], remote: true do |f| %>
     <td></td>
-    <td><%= f.text_field :name %></td>
-    <td><%= f.button "Add" %></td>
+    <td><%= f.text_field :name, class: 'form-control input-sm', placeholder: 'New name' %></td>
+    <td><%= f.button "Add", class: 'btn btn-sm btn-primary' %></td>
   <% end %>
 </tr>
