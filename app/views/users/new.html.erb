@@ -1,33 +1,39 @@
 <div class="row">
   <div class="col-sm-12">
     <div class="page-header">
-      <h1> Signup </h1>
+      <h1>Signup</h1>
     </div>
 
-    <div class="row">
-      <div class="span6 offset3">
-        <%= render 'form_errors', object: @user %>
-        <%= form_for @user do |f| %>
+    <%= render 'form_errors', object: @user %>
+    <%= form_for @user, role: 'form' do |f| %>
 
-          <%= f.label :name %>
-          <%= f.text_field :name, class:'form-control' %><br />
-
-          <%= f.label :email %>
-          <%= f.text_field :email, class:'form-control' %><br />
-
-          <%= f.label :password %>
-          <%= f.password_field :password, class:'form-control' %><br />
-
-          <%= f.label :password_confirmation, "Confirmation" %>
-          <%= f.password_field :password_confirmation, class:'form-control' %><br />
-
-          <%= f.label :registry_number %>
-          <%= f.text_field :registry_number, class:'form-control' %><br />
-
-          <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
-          <%= link_to "Back to home page", root_path, class: "btn btn-large btn-default" %>
-        <% end %>
+      <div class="form-group">
+        <%= f.label :name, for: 'name-input' %>
+        <%= f.text_field :name, class:'form-control', id: 'name-input' %>
       </div>
-    </div>
+
+      <div class="form-group">
+        <%= f.label :email, for: 'email-input' %>
+        <%= f.email_field :email, class:'form-control', id: 'email-input' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password, for: 'password-one-input' %>
+        <%= f.password_field :password, class:'form-control', id: 'password-one-input' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password_confirmation, "Confirmation", for: 'password-two-input' %>
+        <%= f.password_field :password_confirmation, class:'form-control', id: 'password-two-input' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :registry_number, for: 'registry-input' %>
+        <%= f.text_field :registry_number, class:'form-control', id: 'registry-input' %>
+      </div>
+
+      <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
+      <%= link_to "Back to home page", root_path, class: "btn btn-large btn-default" %>
+    <% end %>
   </div>
 </div>
