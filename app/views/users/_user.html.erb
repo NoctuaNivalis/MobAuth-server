@@ -1,1 +1,7 @@
-<li> <%=user.name%>, <%= link_to :profile, user_path(user) %>, <%= link_to :devices, user_devices_path(user) %></li> 
+<tr class="user" id="<%= dom_id(user) %>">
+  <td><%= user.name %></td>
+  <td>
+    <%= link_to raw('<i class="glyphicon glyphicon-user"></i> Profile'), user_path(user), class: 'btn btn-sm btn-default' %>
+    <%= link_to raw('<i class="glyphicon glyphicon-cog"></i> Devices'), user_devices_path(user), class: 'btn btn-sm btn-default' %>
+  </td>
+</tr>

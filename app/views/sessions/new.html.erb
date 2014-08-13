@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="page-header">
+      <h1> Sign in </h1>
+  	</div>
+
+  	<div class="row">
+	  <div class="span6 offset3">
+	    <%= form_for(:session, url: sessions_path) do |f| %>
+
+	      <%= f.label :email %>
+	      <%= f.text_field :email, class:'form-control' %><br />
+
+	      <%= f.label :password %>
+	      <%= f.password_field :password, class:'form-control' %><br />
+
+	      <%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
+	      <%= link_to "Back to home page", root_path, class: "btn btn-large btn-default" %>
+
+	    <% end %>
+
+	    <div>New user? <%= link_to "Sign up now!", signup_path %></div>
+	  </div>
+	</div>
+
+
+  </div>
+</div>
