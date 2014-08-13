@@ -3,11 +3,25 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 ready = ->
+  $("#add-button").prop('disabled', true)
+
+  $("#add-field").keyup ->
+    $("#add-button").prop('disabled', this.value == "" ? true : false)
+
   $("#add-button").click (e) ->
     e.preventDefault()
-    alert('sup!')
-    $("#new_device").append($("#new_device").parent().find('input').clone());
-    $("#new_device").append('<input type="hidden" name="_method" value="post">');
+    $("#link-modal").modal({
+      show: true
+    })
+
+  $(".link-modal-close").click (e) ->
+    # nothing special yet
+
+  $("#link-modal-save").click (e) ->
+    e.preventDefault()
+    $("#link-modal").modal('hide')
+    $("#new_device").append($("#new_device").parent().find('input').clone())
+    $("#new_device").append('<input type="hidden" name="_method" value="post">')
     $("#new_device").submit()
   
 $(document).ready(ready)
