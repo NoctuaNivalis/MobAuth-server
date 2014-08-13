@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
   root 'users#index'
-  match '/signup',  to: 'users#new',    via:'get'
+  match '/signup',  to: 'users#new',            via:'get'
+  match '/signin',  to: 'sessions#new',         via: 'get'
+  match '/signout', to: 'sessions#destroy',     via: 'delete'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -16,6 +18,7 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
+  resources :sessions, only: [:new, :create, :destroy]
   resources :users, only: [:index, :new, :show, :create] do
     resources :devices, only: [:index, :new, :create, :edit, :update, :destroy]
   end
