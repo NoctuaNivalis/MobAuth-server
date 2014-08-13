@@ -8,8 +8,7 @@
     <p>This is still an application under construction. As user management is
     not yet implemented, select one of the users listed below to test the
     application.</p>
-    <p>Sign up: <%= link_to "Sign up", signup_path %></p>
-
+    <p><%= link_to "Sign up", signup_path, class: "btn btn-large btn-primary" %></p>
 
     <ul>
       <%= render @users %>
