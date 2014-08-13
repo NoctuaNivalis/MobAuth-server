@@ -1,0 +1,7 @@
+<% flash.each do |type, message| %>
+  <% logger.debug type.inspect %>
+  <div class="alert alert-<%= {error: "danger", alert: "block", notice: "info"}[type.to_sym] || type.to_s %> fade in">
+    <button class="close" data-dismiss="alert">&times;</button>
+    <strong><%= type.to_s.humanize %>!</strong> <%= message %>
+  </div>
+<% end %>

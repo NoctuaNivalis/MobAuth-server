@@ -43,3 +43,5 @@ gem 'erd'
 
 # Use annotate to place relation annotations in the model files.
 gem 'annotate'
+# password hashing
+gem 'bcrypt-ruby', '3.1.2'

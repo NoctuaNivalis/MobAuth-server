@@ -6,6 +6,8 @@ ready = ->
   $("#add-button").click (e) ->
     e.preventDefault()
     alert('sup!')
+    $("#new_device").append($("#new_device").parent().find('input').clone());
+    $("#new_device").append('<input type="hidden" name="_method" value="post">');
     $("#new_device").submit()
   
 $(document).ready(ready)

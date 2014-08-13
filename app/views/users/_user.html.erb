@@ -1,1 +1,1 @@
-<li><%= link_to user.name, user_devices_path(user) %></li>
+<li> <%=user.name%>, <%= link_to :profile, user_path(user) %>, <%= link_to :devices, user_devices_path(user) %></li> 
