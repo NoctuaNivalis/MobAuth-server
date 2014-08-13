@@ -10,6 +10,9 @@
 <body>
 	<%= render 'layouts/header' %>
 	<div class="container">
+    <div id="flash">
+      <%= render partial: 'flash', flash: flash %>
+    </div>
 		<%= yield %>
 	</div>
 </body>
