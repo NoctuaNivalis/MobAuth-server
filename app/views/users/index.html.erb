@@ -10,9 +10,18 @@
     application.</p>
     <p><%= link_to "Sign up", signup_path, class: "btn btn-large btn-primary" %></p>
 
-    <ul>
-      <%= render @users %>
-    </ul>
+    <div class="table-responsive">
+      <table id="devices" class="table">
+        <thead>
+          <th>Name</th>
+          <th>Actions</th>
+        </thead>
+        <tbody>
+        <%= render @users %>
+        </tbody>
+      </table>
+    </div>
+
   </div>
 </div>
 
