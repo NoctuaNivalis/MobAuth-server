@@ -9,6 +9,9 @@
 <body>
 
 <div class="container">
+  <div id="flash">
+    <%= render partial: 'flash', flash: flash %>
+  </div>
   <%= yield %>
 </div>
 

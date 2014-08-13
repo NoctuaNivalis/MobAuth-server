@@ -11,6 +11,7 @@ class DevicesController < ApplicationController
 
   def create
     @device = @user.devices.create params.require(:device).permit(:name)
+    errors_to_flash @device
   end
 
   def edit
@@ -18,10 +19,12 @@ class DevicesController < ApplicationController
 
   def update
     @device.update params.require(:device).permit(:name)
+    errors_to_flash @device
   end
     
   def destroy
     @device.destroy
+    flash.now[:success] = "Device unlinked and removed."
   end
 
   private

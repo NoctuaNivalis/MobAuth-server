@@ -1,1 +1,4 @@
-$("#edit_<%= dom_id(@device) %>").parent().replaceWith("<%= escape_javascript render @device %>");
+<%= show_flash %>
+<% unless @device.errors.any? %>
+  $("#edit_<%= dom_id(@device) %>").parent().replaceWith("<%= escape_javascript render @device %>");
+<% end %>
