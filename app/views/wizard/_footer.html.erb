@@ -1,0 +1,7 @@
+
+<%= link_to "Previous", previous_wizard_path, remote: true, disabled: @wizard.first?, class: 'btn btn-default' %>
+<% unless @wizard.last? %>
+  <%= link_to "Next", next_wizard_path, remote: true, class: 'btn btn-primary' %>
+<% else %>
+  <a class="btn btn-primary" id="link-modal-save">Close</a>
+<% end %>

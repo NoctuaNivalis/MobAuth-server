@@ -10,19 +10,23 @@ ready = ->
 
   $("#add-button").click (e) ->
     e.preventDefault()
-    $("#link-modal").modal({
-      show: true
-    })
+    $(".modal-content").load("/wizard/start", (response, status, xhr) ->
+      if status == "error"
+        $("#flash").html("<div class=\"alert alert-danger fade in\"><button class=\"close\" data-dismiss=\"a;ert\">&times;</button><strong>Error!</strong> Could not retrieve modal.</div>")
+      else
+        $("#link-modal").modal()
+    );
 
   $(".link-modal-close").click (e) ->
     # nothing special yet
 
-  $("#link-modal-save").click (e) ->
+  $(document).on('click', "#link-modal-save", (e) ->
     e.preventDefault()
     $("#link-modal").modal('hide')
     $("#new_device").append($("#new_device").parent().find('input').clone())
     $("#new_device").append('<input type="hidden" name="_method" value="post">')
     $("#new_device").submit()
+  );
   
 $(document).ready(ready)
 $(document).on('page:load', ready)

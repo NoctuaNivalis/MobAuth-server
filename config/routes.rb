@@ -24,6 +24,16 @@ Rails.application.routes.draw do
     resources :devices, only: [:index, :new, :create, :edit, :update, :destroy]
   end
 
+  resource :wizard, only: [], controller: 'wizard' do
+    get 'start'
+    get 'next'
+    get 'previous'
+  end
+
+  #get 'steps/start', to: 'steps#start'
+  #get 'steps/next', to: 'steps#next'
+  #get 'steps/previous', to: 'steps#previous'
+
   # Example resource route with options:
   #   resources :products do
   #     member do
