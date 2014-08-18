@@ -45,3 +45,6 @@ gem 'erd'
 gem 'annotate'
 # password hashing
 gem 'bcrypt-ruby', '3.1.2'
+
+# Passenger, for nginx
+gem 'passenger'
