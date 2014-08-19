@@ -12,15 +12,31 @@
 #
 
 class User < ActiveRecord::Base
-	before_save { self.email = email.downcase }
-    has_many :devices
-    validates :name, presence: true
-    VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-    validates :email, presence: true,
-                      format:     { with: VALID_EMAIL_REGEX },
-    				  uniqueness: {case_sensitive: false}
 
-    has_secure_password
-    validates :password, length: { minimum: 6 }
-    validates :registry_number, presence: true
+  # Relations
+  has_many :devices, dependent: :destroy
+
+  # Validations
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+
+  validates :name,
+    presence: true
+
+  validates :email,
+    presence:   true,
+    format:     { with: VALID_EMAIL_REGEX },
+  	uniqueness: { case_sensitive: false }
+
+  has_secure_password
+  validates :password,
+    length: { minimum: 6 }
+
+  validates :registry_number,
+    presence: true
+
+  # Callbacks
+	before_save do
+    self.email = email.downcase
+  end
+
 end

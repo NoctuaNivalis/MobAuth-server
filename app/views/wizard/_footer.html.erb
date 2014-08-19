@@ -3,5 +3,5 @@
 <% unless @wizard.last? %>
   <%= link_to "Next", next_wizard_path, remote: true, class: 'btn btn-primary' %>
 <% else %>
-  <a class="btn btn-primary" id="link-modal-save">Close</a>
+  <a class="btn btn-primary" id="link-modal-save" disabled="disabled">Close</a>
 <% end %>
