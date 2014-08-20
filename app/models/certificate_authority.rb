@@ -65,4 +65,37 @@ class CertificateAuthority
     @im_crt = im_crt
   end
 
+  def sign(csr)
+    # Signs the certificate signing request, returning a certificate.
+
+    # Checking the csr's signature.
+    raise 'CSR can not be verified' unless csr.verify csr.public_key
+
+    # Generating a certficte.
+    crt = OpenSSL::X509::Certificate.new
+    crt.serial = 0
+    crt.version = 2
+    crt.not_before = Time.now
+    crt.not_after = Time.now + Settings.client_crt.valid_for.days
+    crt.subject = csr.subject
+    crt.public_key = csr.public_key
+    crt.issuer = @im_crt.subject
+
+    extension_factory = OpenSSL::X509::ExtensionFactory.new
+    extension_factory.subject_certificate = crt
+    extension_factory.issuer_certificate = @im_crt
+
+    crt.add_extension extension_factory.create_extension(
+      'basicConstraints', 'CA:FALSE')
+    crt.add_extension extension_factory.create_extension(
+      'keyUsage', 'keyEncipherment,dataEncipherment,digitalSignature')
+    crt.add_extension extension_factory.create_extension(
+      'subjectKeyIdentifier', 'hash')
+
+    # Signing the certificate.
+    crt.sign @im_key, OpenSSL::Digest::SHA1.new
+
+    crt
+  end
+
 end
