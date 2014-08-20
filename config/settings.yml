@@ -1,0 +1,19 @@
+
+# The location of the public and private key of the CA
+# Passphrases are to be stored in 'config/settings.local.yml' as
+# 'private_key_passphrase'.
+key_file: "<%= ENV['HOME'] %>/private/ca.key"
+crt_file: "<%= ENV['HOME'] %>/public/ca.crt"
+
+# Options for the intermediate certificate authority.
+intermediate:
+  country:      "BE"
+  state:        "Vlaams-Brabant"
+  city:         "Diegem"
+  organization: "Deloitte"
+  department:   "Audit & ERS"
+  common_name:  "Mobile Authentication Server"
+  email:        ""
+  key_size:     4096
+  valid_for:    600 # days
+
