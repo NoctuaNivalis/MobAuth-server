@@ -25,6 +25,7 @@ class CertificatesController < ApplicationController
     #  logger.debug e.backtrace.join "\n"
     #  render json: { error: e.message }, status: 400
     else
+      @token.update! certificate: crt.to_pem
       render plain: crt.to_pem
     end
   end
