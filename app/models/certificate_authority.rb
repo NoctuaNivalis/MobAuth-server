@@ -51,6 +51,7 @@ module CertificateAuthority
     end
 
     def revoke(crt)
+      load_instances
       if crt.not_after < Time.now
         # Invalid certificate
         # TODO should this still be revoked?
@@ -62,6 +63,12 @@ module CertificateAuthority
         # not one of our crt's
         # TODO crash somehow.
       end
+    end
+
+    def verify(crt)
+      load_instances
+      crt.verify @@new_files.crt.public_key || \
+        (@@old_files && crt.verify(@@old_files.crt.public_key))
     end
 
     private
@@ -101,7 +108,7 @@ module CertificateAuthority
         ca.key = OpenSSL::PKey::RSA.new io, Settings.ca_passphrase
       end
       open Settings.crt_file do |io|
-        ca.crt = OpenSSL::X509::Certificate.new ca_crt_file
+        ca.crt = OpenSSL::X509::Certificate.new io
       end
 
       # Generating an intermediate ca key and crs.
@@ -119,7 +126,7 @@ module CertificateAuthority
         ['emailAddress', Settings.intermediate.email,        OpenSSL::ASN1::UTF8STRING]
       ]
       csr.public_key = im.key.public_key
-      csr.sign(ca_key, OpenSSL::Digest::SHA1.new)
+      csr.sign(ca.key, OpenSSL::Digest::SHA1.new)
 
       # Signing the intermediate ca crs with the root ca.
       im.crt = OpenSSL::X509::Certificate.new
@@ -127,20 +134,20 @@ module CertificateAuthority
       im.crt.version = 2
       im.crt.not_before = Time.now
       im.crt.not_after = Time.now + Settings.intermediate.valid_for.days
-      im.crt.subject = im_csr.subject
+      im.crt.subject = csr.subject
       im.crt.public_key = csr.public_key
       im.crt.issuer = ca.crt.subject
 
       extension_factory = OpenSSL::X509::ExtensionFactory.new
-      extension_factory.subject_certificate = im_crt
-      extension_factory.issuer_certificate = ca_crt
+      extension_factory.subject_certificate = im.crt
+      extension_factory.issuer_certificate = ca.crt
 
       im.crt.add_extension extension_factory.create_extension(
         'basicConstraints', 'CA:TRUE', true)
       im.crt.add_extension extension_factory.create_extension(
         'keyUsage', 'cRLSign,keyCertSign', true)
 
-      im.crt.sign ca_key, OpenSSL::Digest::SHA1.new
+      im.crt.sign ca.key, OpenSSL::Digest::SHA1.new
 
       # Remembering the certificate and the key.
       return im

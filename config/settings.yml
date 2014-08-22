@@ -1,7 +1,7 @@
 
 # The location of the public and private key of the CA
 # Passphrases are to be stored in 'config/settings.local.yml' as
-# 'private_key_passphrase'.
+# 'ca_passphrase'.
 key_file: "<%= ENV['HOME'] %>/private/ca.key"
 crt_file: "<%= ENV['HOME'] %>/public/ca.crt"
 
