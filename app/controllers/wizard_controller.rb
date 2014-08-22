@@ -1,9 +1,15 @@
 class WizardController < ApplicationController
 
   before_action :wizard
+  before_action :token, except: [:start]
 
   def start
     @wizard.first
+    loop do
+      @token = Token.new
+      break if @token.save
+    end
+    session[:wizard_token] = @token.id
     render partial: 'wizard'
   end
 
@@ -21,6 +27,10 @@ class WizardController < ApplicationController
 
   def wizard
     @wizard = Wizard.new steps, session
+  end
+
+  def token
+    @token = Token.find session[:wizard_token]
   end
 
   def steps

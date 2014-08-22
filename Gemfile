@@ -51,3 +51,7 @@ gem 'passenger'
 
 # Congifuration of our own settings
 gem 'rails_config'
+
+# Generating QR codes.
+gem 'rqrcode'
+

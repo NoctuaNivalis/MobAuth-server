@@ -10,15 +10,12 @@
 #
 
 class Token < ActiveRecord::Base
-  # relations
-  belongs_to :device
 
   # call_backs
   after_initialize :generate_code
 
   # validations
   validates :code, uniqueness: true, presence: true
-  validates :device_id, uniqueness: true, presence: true
 
   def recent?
     # Is this a recent (and thus valid) token?
@@ -27,12 +24,17 @@ class Token < ActiveRecord::Base
     self.created_at > 5.minutes.ago
   end
 
+  def to_qr
+    RQRCode::QRCode.new code, size: 4, level: :h
+    # TODO make it a link to this server, so apps shouldn't be modified on
+    # server change.
+  end
+
   protected
 
   def generate_code
     # generate code automatically on creation.
-    puts "HEY"
-    self.code = SecureRandom.urlsafe_base64(32)
+    self.code ||= SecureRandom.urlsafe_base64(10)
   end
 
 end

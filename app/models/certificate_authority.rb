@@ -11,17 +11,25 @@ module CertificateAuthority
     end
   end
 
+  # Exceptions
+  class InvalidCSR < StandardError
+    def initialize
+      super('CSR cannot be verified.')
+    end
+  end
+
   class << self
 
     @@old_files = nil
     @@new_files = nil
 
-    def sign(csr)
+    def sign(csr_file)
       # Signs the certificate signing request, returning a certificate.
       load_instances
 
       # Checking the csr's signature.
-      raise 'CSR can not be verified' unless csr.verify csr.public_key
+      csr = OpenSSL::X509::Request.new csr_file.read
+      raise InvalidCSR unless csr.verify csr.public_key
 
       # Generating a certficte.
       crt = OpenSSL::X509::Certificate.new
