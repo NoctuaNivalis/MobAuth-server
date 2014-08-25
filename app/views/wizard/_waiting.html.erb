@@ -1,0 +1,6 @@
+<center style="padding: 30px">
+  <img id="loading-img" src="<%= image_path("ajax-loader.gif") %>" alt="Loading..." />
+</center>
+<%= javascript_tag do %>
+  <%= render 'check_ready' %>
+<% end %>

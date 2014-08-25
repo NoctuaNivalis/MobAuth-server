@@ -1,0 +1,28 @@
+
+# The location of the public and private key of the CA
+# Passphrases are to be stored in 'config/settings.local.yml' as
+# 'ca_passphrase'.
+key_file: "<%= ENV['HOME'] %>/private/ca.key"
+crt_file: "<%= ENV['HOME'] %>/public/ca.crt"
+
+# Options for the intermediate certificate authority.
+intermediate:
+  country:      "BE"
+  state:        "Vlaams-Brabant"
+  city:         "Diegem"
+  organization: "Deloitte"
+  department:   "Audit & ERS"
+  common_name:  "Mobile Authentication Server"
+  email:        ""
+  key_size:     4096
+  valid_for:    600 # days
+  old_files:
+    key:        "<%= Rails.root %>/private/old_key" # passphrase set in setting.local.yml
+    crt:        "<%= Rails.root %>/public/old_crt"
+  new_files:
+    key:        "<%= Rails.root %>/private/new_key" # passphrase set in setting.local.yml
+    crt:        "<%= Rails.root %>/public/new_crt"
+
+# Options for the client certificate.
+client_crt:
+  valid_for:    365 #days
