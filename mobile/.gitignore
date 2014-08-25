@@ -1,0 +1,7 @@
+
+platforms/android/
+plugins/org.apache.cordova.console/
+plugins/org.apache.cordova.device/
+plugins/org.apache.cordova.dialogs/
+plugins/org.apache.cordova.statusbar/
+
