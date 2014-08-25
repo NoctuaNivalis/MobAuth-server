@@ -31,7 +31,7 @@ module CertificateAuthority
       csr = OpenSSL::X509::Request.new csr_file.read
       raise InvalidCSR unless csr.verify csr.public_key
 
-      # Generating a certficte.
+      # Generating a certificate.
       crt = OpenSSL::X509::Certificate.new
       crt.serial = 0
       crt.version = 2
