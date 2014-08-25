@@ -30,6 +30,10 @@ Rails.application.routes.draw do
     get 'previous'
   end
 
+  resource :certificates, only: [:create] do
+    get 'check'
+  end
+
   #get 'steps/start', to: 'steps#start'
   #get 'steps/next', to: 'steps#next'
   #get 'steps/previous', to: 'steps#previous'

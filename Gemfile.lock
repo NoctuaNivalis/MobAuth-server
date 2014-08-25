@@ -98,6 +98,7 @@ GEM
     rake (10.3.2)
     rdoc (4.1.1)
       json (~> 1.4)
+    rqrcode (0.4.2)
     ruby-graphviz (1.0.9)
     sass (3.2.19)
     sass-rails (4.0.3)
@@ -146,6 +147,7 @@ DEPENDENCIES
   passenger
   rails (= 4.1.4)
   rails_config
+  rqrcode
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   spring

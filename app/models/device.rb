@@ -11,7 +11,6 @@
 
 class Device < ActiveRecord::Base
   belongs_to :user
-  has_one :token
 
   validates :name,
     presence: true,
