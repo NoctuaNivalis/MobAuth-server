@@ -10,7 +10,11 @@ class DevicesController < ApplicationController
   end
 
   def create
-    @device = @user.devices.create params.require(:device).permit(:name)
+    @device = @user.devices.new params.require(:device).permit(:name)
+    token = Token.find_by_code session[:wizard_token]
+    @device.certificate = token.certificate
+    token.destroy
+    @device.save
     errors_to_flash @device
   end
 

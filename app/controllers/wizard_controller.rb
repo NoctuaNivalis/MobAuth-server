@@ -9,7 +9,7 @@ class WizardController < ApplicationController
       @token = Token.new
       break if @token.save
     end
-    session[:wizard_token] = @token.id
+    session[:wizard_token] = @token.code
     render partial: 'wizard'
   end
 
@@ -30,7 +30,7 @@ class WizardController < ApplicationController
   end
 
   def token
-    @token = Token.find session[:wizard_token]
+    @token = Token.find_by_code session[:wizard_token]
   end
 
   def steps
