@@ -25,10 +25,25 @@ class CertificateAuthorityTest < ActiveSupport::TestCase
     request.sign key, OpenSSL::Digest::SHA1.new
 
     # Ask CA to sign key.
-    crt = CertificateAuthority.sign(request)
+    crt = CertificateAuthority.sign(request.to_pem)
+
+    # Check if it's stored.
+    assert_equal Certificate.last, crt, \
+      "Certificate not stored."
 
     # Check if it's signed by the CA.
-    assert CertificateAuthority.verify(crt)
+    assert CertificateAuthority.verify(crt.crt), \
+      "Signed certificate not signed by the ca?"
+
+    # Revoke the certificate
+    CertificateAuthority.revoke(crt.crt)
+
+    # Check if it's on the list
+    list = crt.intermediate_ca.revocation_list
+    assert list.verify(crt.intermediate_ca.key), \
+      "List not signed by it's ca."
+    assert_match /Serial Number: 0*#{crt.crt.serial}/, list.to_text, \
+      "Certificate not on revocation list."
   end
 
   # TODO test invalid crt's, verify with old_ca, ...
