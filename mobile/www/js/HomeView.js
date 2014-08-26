@@ -5,16 +5,25 @@ var HomeView = function(service) {
     this.initialize = function() {
         // Define a div wrapper for the view (used to attach events)
         this.$el = $('<div/>');
-        this.$el.on('keyup', '.search-key', this.findByName);
         employeeListView = new EmployeeListView();
+        // Standard the complete list of users is generated
+        this.findAll();
         this.render();
     };
 
+    //to return a list of users filtered by name
     this.findByName = function() {
         service.findByName($('.search-key').val()).done(function(employees) {
             employeeListView.setEmployees(employees);
         });
     };
+
+    // to return the list of all users
+    this.findAll = function() {
+        service.findAll().done(function(employees) {
+            employeeListView.setEmployees(employees)
+        });
+    }
 
     this.render = function() {
         this.$el.html(this.template());
