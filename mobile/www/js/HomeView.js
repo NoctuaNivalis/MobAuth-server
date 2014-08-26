@@ -4,7 +4,7 @@ var HomeView = function(service) {
 
     this.initialize = function() {
         // Define a div wrapper for the view (used to attach events)
-        this.$el = $('<div/>');
+        this.$el = $('<div/>');        
         employeeListView = new EmployeeListView();
         // Standard the complete list of users is generated
         this.findAll();
@@ -23,6 +23,15 @@ var HomeView = function(service) {
         service.findAll().done(function(employees) {
             employeeListView.setEmployees(employees)
         });
+    }
+
+    // add new user
+    this.addUser = function() {
+        
+        //sturen naar server van de code+ CSR
+        //na bevestiging + naam gebruiker
+        //gebruiker toevoegen
+        //bevestiging succes
     }
 
     this.render = function() {
