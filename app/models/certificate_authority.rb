@@ -11,10 +11,10 @@ module CertificateAuthority
 
   class << self
 
-    def sign(csr_file)
+    def sign(csr_file, host)
       # Signs the certificate signing request, returning a certificate.
       load_instances
-      new_ca.sign(csr_file)
+      new_ca.sign(csr_file, host)
     end
 
     def revoke(crt)

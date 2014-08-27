@@ -11,6 +11,9 @@
 
 class Token < ActiveRecord::Base
 
+  # relations
+  has_one :certificate
+
   # call_backs
   after_initialize :generate_code
 

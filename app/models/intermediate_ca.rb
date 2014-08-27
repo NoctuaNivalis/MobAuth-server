@@ -2,6 +2,10 @@ require 'openssl'
 
 class IntermediateCa < ActiveRecord::Base
 
+  include Rails.application.routes.url_helpers
+
+  @@serialNumber = 0
+
   # relations
   has_many :certificates
 
@@ -16,7 +20,7 @@ class IntermediateCa < ActiveRecord::Base
     self.crt.not.after < Time.now
   end
 
-  def sign(csr)
+  def sign(csr, host)
     # Checking the csr's signature.
     csr = OpenSSL::X509::Request.new csr
     raise InvalidCSR unless csr.verify csr.public_key
@@ -25,7 +29,7 @@ class IntermediateCa < ActiveRecord::Base
 
     # Generating a certificate.
     crt = OpenSSL::X509::Certificate.new
-    crt.serial = 0
+    crt.serial = @@serialNumber+=1
     crt.version = 2
     crt.not_before = time
     crt.not_after = Time.now + Settings.client_crt.valid_for.days
@@ -43,6 +47,8 @@ class IntermediateCa < ActiveRecord::Base
       'keyUsage', 'keyEncipherment,dataEncipherment,digitalSignature')
     crt.add_extension extension_factory.create_extension(
       'subjectKeyIdentifier', 'hash')
+    crt.add_extension extension_factory.create_extension(
+      'crlDistributionPoints', "URI:#{crl_url(self, host: host)}")
 
     # Signing the certificate.
     crt.sign self.key, OpenSSL::Digest::SHA1.new
