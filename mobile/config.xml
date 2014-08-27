@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.deloitte.mobauth" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Mobile Authentication</name>
+    <description>
+        A sample Apache Cordova application that responds to the deviceready event.
+    </description>
+    <author email="louis.van.ackere0@gmail.com">
+        Louis Van Ackere
+    </author>
+    <author email="felix.vanderjeugt@gmail.com">
+        Felix Van der Jeugt
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+</widget>

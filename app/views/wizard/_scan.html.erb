@@ -1,5 +1,18 @@
 <p>Please insert following token, or scan the QR code.</p>
-<pre>SEVMTE8gQ09ERSBLVEhYQkFJ</pre>
+<pre><%= @token.code %></pre>
 <center>
-  <img src="<%= image_path("qr_code.png") %>" width="250px" />
+  <% qr = @token.to_qr %>
+  <table class="qr-code">
+    <% qr.modules.each_index do |x| %>
+      <tr>
+        <% qr.modules.each_index do |y| %>
+          <% if qr.dark?(x,y) %>
+            <td class="black"/>
+          <% else %>
+            <td class="white"/>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
 </center>

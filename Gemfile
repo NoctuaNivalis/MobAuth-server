@@ -48,3 +48,10 @@ gem 'bcrypt-ruby', '3.1.2'
 
 # Passenger, for nginx
 gem 'passenger'
+
+# Congifuration of our own settings
+gem 'rails_config'
+
+# Generating QR codes.
+gem 'rqrcode'
+

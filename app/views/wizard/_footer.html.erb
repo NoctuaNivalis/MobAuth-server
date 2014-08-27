@@ -1,4 +1,6 @@
 
+<!-- token code -->
+<input type="hidden" name="wizard_token" id="wizard_token" value="<%= @token.code %>" />
 <%= link_to "Previous", previous_wizard_path, remote: true, disabled: @wizard.first?, class: 'btn btn-default' %>
 <% unless @wizard.last? %>
   <%= link_to "Next", next_wizard_path, remote: true, class: 'btn btn-primary' %>

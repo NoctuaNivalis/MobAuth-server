@@ -1,4 +1,22 @@
-setTimeout(function() {
-  $("#link-modal-save").removeAttr("disabled");
-  $("#loading-img").replaceWith("<p>Done!</p>");
-}, 3000);
+var checker = function() {
+  $.ajax({
+    url: "<%= check_certificates_path %>",
+    dataType: "json",
+    data: { wizard_token: document.getElementById("wizard_token").value },
+    success: function(data) {
+      if(data.ready) {
+        $("#link-modal-save").removeAttr("disabled");
+        $("#loading-img").replaceWith("<p>Done!</p>");
+      } else {
+        setTimeout(checker, 1000);
+      }
+    },
+    error: function(xhr) {
+      var errors = $.parseJSON(xhr.responseText).errors;
+      // TODO
+      setTimeout(checker, 1000);
+    }
+  });
+}
+
+setTimeout(checker, 1000);

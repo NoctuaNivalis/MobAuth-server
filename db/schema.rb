@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140812141241) do
+ActiveRecord::Schema.define(version: 20140826122502) do
+
+  create_table "certificates", force: true do |t|
+    t.integer  "device_id"
+    t.integer  "intermediate_ca_id"
+    t.binary   "crt"
+    t.datetime "revoked_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "certificates", ["device_id"], name: "index_certificates_on_device_id"
+  add_index "certificates", ["intermediate_ca_id"], name: "index_certificates_on_intermediate_ca_id"
 
   create_table "devices", force: true do |t|
     t.string   "name"
@@ -22,15 +34,21 @@ ActiveRecord::Schema.define(version: 20140812141241) do
 
   add_index "devices", ["user_id"], name: "index_devices_on_user_id"
 
-  create_table "tokens", force: true do |t|
-    t.string   "code",       null: false
-    t.integer  "device_id",  null: false
+  create_table "intermediate_cas", force: true do |t|
+    t.binary   "keypair"
+    t.binary   "certificate"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  create_table "tokens", force: true do |t|
+    t.string   "code",           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "certificate_id"
+  end
+
   add_index "tokens", ["code"], name: "index_tokens_on_code", unique: true
-  add_index "tokens", ["device_id"], name: "index_tokens_on_device_id"
 
   create_table "users", force: true do |t|
     t.string   "name"

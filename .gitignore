@@ -14,3 +14,10 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/vendor/cache
+
+config/settings.local.yml
+config/settings/*.local.yml
+config/environments/*.local.yml
+private/*
+public/new_crt
