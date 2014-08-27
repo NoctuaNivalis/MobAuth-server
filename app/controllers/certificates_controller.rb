@@ -17,12 +17,13 @@ class CertificatesController < ApplicationController
       render json: { error: e.message }, status: 400
     else
       @token.update! certificate: crt.to_pem
-      render plain: crt.to_pem
+      render json { certificate: crt.to_pem , username: User.find_by(id: session[:remember_token])}, status: 200
     end
   end
 
   def check
-    render json: { ready: @token.certificate.present? }
+    #checkt of er een certificaat in het token zit (indien zo is linking gebeurd)
+    render json: { ready: @token.certificate.present? } 
   end
 
   private
@@ -36,7 +37,7 @@ class CertificatesController < ApplicationController
       return false
     end
 
-    unless @token = Token.find_by_code(params.require(:wizard_token))
+    unless @token = Token.find_by_code(code)
       render json: { error: "Token not found or expired." }, status: 404
       return false
     end
