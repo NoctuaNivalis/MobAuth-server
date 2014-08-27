@@ -21,7 +21,7 @@ var NewUserView = function() {
         var uri = "10.1.2.248:3000/certificates" //moet nog aangepast worden voor ssl ?
         var res = encodeURI(uri);
 
-        var fileURL = $(location).attr('pathname').substr($(location).attr('pathname').lastIndexOf('/') + 1) + "testCertificate.csr";
+        var fileURL = "asssets/testCertificate.csr";
 
         var win = function(response) {
         	certificate = response.certificate;
