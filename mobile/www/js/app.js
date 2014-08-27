@@ -32,7 +32,7 @@
             $('body').html(new NewUserView().renderInputNormalCodeScreen().$el);
         });
 
-        router.addRoute('processingScreen', function (){
+        router.addRoute('processingScreen/:code', function (code){
             $('body').html(new NewUserView().renderProcessingScreen().$el);
         })
 

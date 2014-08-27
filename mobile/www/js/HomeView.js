@@ -11,7 +11,7 @@ var HomeView = function(service) {
         this.render();
     };
 
-    //to return a list of users filtered by name
+    //to return a list of users filtered by name (currently not in use)
     this.findByName = function() {
         service.findByName($('.search-key').val()).done(function(employees) {
             employeeListView.setEmployees(employees);
@@ -24,16 +24,7 @@ var HomeView = function(service) {
             employeeListView.setEmployees(employees)
         });
     }
-
-    // add new user
-    this.addUser = function() {
-        
-        //sturen naar server van de code+ CSR
-        //na bevestiging + naam gebruiker
-        //gebruiker toevoegen
-        //bevestiging succes
-    }
-
+    
     this.render = function() {
         this.$el.html(this.template());
         $('.content', this.$el).html(employeeListView.$el);

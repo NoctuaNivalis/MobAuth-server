@@ -101,14 +101,15 @@
     </script>
 
     <script id="input-normal-code-tpl" type="text/template">
-        <form>
-          <input type="text" placeholder="Code" id="normalCode">
-          <a class="btn btn-positive btn-block" href="#processingScreen">Submit code</a>
+        <form action="#processingScreen/">
+          <input type="text" placeholder="Code" id="normalCodeInput">
+          <a class="btn btn-positive btn-block" id="normalCode">Submit code</a>
+
         </form>
     </script>
 
     <script id="processing-screen-tpl" type="text/template">
-        <div class="media-body container">
+        <div class="container">
             <img class="media-object" src="assets/ajax-loader.gif">
         </div>
     </script>
