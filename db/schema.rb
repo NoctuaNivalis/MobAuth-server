@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140826122502) do
+ActiveRecord::Schema.define(version: 20140828112507) do
 
   create_table "certificates", force: true do |t|
     t.integer  "device_id"
@@ -46,9 +46,11 @@ ActiveRecord::Schema.define(version: 20140826122502) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "certificate_id"
+    t.integer  "user_id"
   end
 
   add_index "tokens", ["code"], name: "index_tokens_on_code", unique: true
+  add_index "tokens", ["user_id"], name: "index_tokens_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "name"

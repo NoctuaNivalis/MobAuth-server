@@ -17,7 +17,10 @@ class CertificatesController < ApplicationController
       render json: { error: e.message }, status: 400
     else
       @token.update! certificate_id: crt.id
-      render plain: crt.crt.to_pem
+      render json: {
+        username: @token.user.name,
+        certificate: crt.crt.to_pem
+      }
     end
   end
 

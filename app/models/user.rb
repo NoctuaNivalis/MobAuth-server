@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
 
   # Relations
   has_many :devices, dependent: :destroy
+  has_many :tokens, dependent: :destroy
 
   # Validations
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

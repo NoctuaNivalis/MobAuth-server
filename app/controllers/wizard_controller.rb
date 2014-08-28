@@ -5,8 +5,9 @@ class WizardController < ApplicationController
 
   def start
     @wizard.first
+    user = User.find(session[:remember_token])
     loop do
-      @token = Token.new
+      @token = user.tokens.new
       break if @token.save
     end
     session[:wizard_token] = @token.code

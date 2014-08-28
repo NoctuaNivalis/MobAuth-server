@@ -18,12 +18,14 @@ class Token < ActiveRecord::Base
 
   # relations
   has_one :certificate
+  belongs_to :user
 
   # call_backs
   after_initialize :generate_code
 
   # validations
   validates :code, uniqueness: true, presence: true
+  validates :user, presence: true
 
   def recent?
     # Is this a recent (and thus valid) token?
