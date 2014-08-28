@@ -16,9 +16,6 @@ var NewUserView = function() {
     this.addUser = function(code) {
 
         /* Configuration constants */
-        var folderName = "Android/data/com.deloitte.mobauth/files/";
-            // TODO this works only for android! See:
-            // https://github.com/apache/cordova-plugin-file/blob/master/doc/index.md
         var privateKeyFile = "private.key.pem";
         var certificateFile = "user.crt.pem";
         var keySize = 1024;
@@ -40,11 +37,10 @@ var NewUserView = function() {
         var privPem = forge.pki.privateKeyToPem(keypair.privateKey);
 
         /* Write a file in the given directory. */
-        var writeStringToFile = function(folder, file, string, success, fail) {
-            window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
-            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
-                fileSystem.root.getDirectory(folder, opts, function(folder_) {
-                    folder_.getFile(file, opts, function(file_) {
+        var writeStringToFile = function(file, string, success, fail) {
+            window.resolveLocalFileSystemURI(cordova.file.applicationStorageDirectory, function(root) {
+                root.getDirectory("files", opts, function(folder) {
+                    folder.getFile(file, opts, function(file_) {
                         file_.createWriter(function(io) {
                             io.onwrite = success;
                             io.write(string);
@@ -55,7 +51,7 @@ var NewUserView = function() {
                         fail("Failed to get file: " + file);
                     });
                 }, function() {
-                    fail("Failed to get folder: " + folderName);
+                    fail("Failed to get folder `files`.");
                 });
             }, function() {
                 fail("Failed to get file system.");
@@ -63,7 +59,7 @@ var NewUserView = function() {
         };
 
         /* Writing the private key. */
-        writeStringToFile(folderName, privateKeyFile, privPem, function() {}, alert);
+        writeStringToFile(privateKeyFile, privPem, function() {}, alert);
 
         /* Creating the certificate signing request. */
         var csr = forge.pki.createCertificationRequest();
@@ -90,9 +86,11 @@ var NewUserView = function() {
             fileSystem.root.getFile(tempFile, opts, function(file) {
                 file.createWriter(function(io) {
                     io.onwrite = function() {
-                        postToServer(file, function(response) {
-                            alert("Code = " = response.code);
-                            alert(r.response);
+                        postToServer(file, function(r) {
+                            alert("Sup");
+                            var response = $.parseJSON(r["response"]);
+                            alert(response.username);
+                            alert(response.certificate);
                         }, function(error) {
                             fail("code=" + error.code);
                             fail("source=" + error.source);
