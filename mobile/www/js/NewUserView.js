@@ -14,41 +14,105 @@ var NewUserView = function() {
 
 	    // add new user
     this.addUser = function(code) {
+
+        /* Configuration constants */
+        var folderName = "Android/data/com.deloitte.mobauth/files/";
+            // TODO this works only for android! See:
+            // https://github.com/apache/cordova-plugin-file/blob/master/doc/index.md
+        var privateKeyFile = "private.key.pem";
+        var certificateFile = "user.crt.pem";
+        var keySize = 1024;
+        var wizard_token = code;
+        var uri = "10.1.2.248:3000/certificates";
+            // TODO Get the host and token from the code?
+        var server = encodeURI(uri);
+
+        /* Just some useful variables */
+        var that = this;
+        var opts = { create: true, exclusive: false };
     	var certificate = null;
     	var username = null;
-        // genereren keys en CSR
-        // sturen naar server van de code+ CSR via plugin
-        var uri = "10.1.2.248:3000/certificates" //moet nog aangepast worden voor ssl ?
-        var res = encodeURI(uri);
 
-        var fileURL = $(location).attr('pathname').substr($(location).attr('pathname').lastIndexOf('/') + 1) + "testCertificate.csr";
+        /* Generating keys and certificate request
+         * Documentation: https://github.com/digitalbazaar/forge
+         * The server should fill in the certificate details. */
+        alert("about to generate keys");
+        var keypair = forge.pki.rsa.generateKeyPair({ bits: keySize });
+        alert("keys generated");
+        var privPem = forge.pki.privateKeyToPem(keypair.privateKey);
+        alert(privPem);
 
-        var win = function(response) {
-        	certificate = response.certificate;
-        	username = response.username;
-        	alert(username);
-        }
+        /* Write a file in the given directory. */
+        var writeStringToFile = function(folder, file, string, success, fail) {
+            window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
+            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+                fileSystem.root.getDirectory(folder, opts, function(folder_) {
+                    folder_.getFile(file, opts, function(file_) {
+                        file_.createWriter(function(io) {
+                            //io.truncate(0);
+                            //io.seek(0);
+                            io.onwrite = success;
+                            io.write(string);
+                        }, function() {
+                            fail("Failed to write in " + file);
+                        });
+                    }, function() {
+                        fail("Failed to get file: " + file);
+                    });
+                }, function() {
+                    fail("Failed to get folder: " + folderName);
+                });
+            }, function() {
+                fail("Failed to get file system.");
+            });
+        };
 
-        var fail = function(error) {
-        	alert("an error has occurred: Code = " + error.code);
-        	console.log("upload error source " + error.source);
-        	console.log("upload error target " + error.target);
-        }
+        /* Writing the private key. */
+        writeStringToFile(folderName, privateKeyFile, privPem, function() { alert("sup"); }, alert);
 
-        var options = new FileUploadOptions();
-        options.filekey = "csr";
-        options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
+        /* Creating the certificate signing request. */
+        //var csr = forge.pki.createCertificationRequest();
+        //var csrPem = forge.pki.certificationRequestToPem(csr);
+        //csr.publicKey = keypair.publicKey;
+        //csr.sign(keypair.privateKey);
+        //alert("signed csr");
 
-        var params = {};
-        params.wizard_token = code;
+        ///* Post the given certification request to the server. */
+        //var postToServer = function(file, success, fail) {
+        //    var options = new FileUploadOptions();
+        //    options.filekey = "csr";
+        //    var params = {};
+        //    params.wizard_token = wizard_token;
+        //    options.params = params;
+        //    var ft = new FileTransfer();
+        //    ft.upload(file.toURL(), server, success, fail, options);
+        //};
 
-        options.params = params;
+        ///* Saving and posting the certification request to the server. */
+        //var fail = alert;
+        //window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
+        //window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, function(fileSystem) {
+        //    var tempFile = "temp.csr";
+        //    fileSystem.root.getFile(tempFile, opts, function(file) {
+        //        file.createWriter(function(io) {
+        //            io.truncate(0);
+        //            io.onwrite = function() {
+        //                postToServer(file, function(response) {
+        //                    alert("Code = " = response.code);
+        //                    alert(r.response);
+        //                }, function() {
+        //                    fail("Failed post to server.");
+        //                });
+        //            };
+        //            io.write(csrPem);
+        //        }, function() {
+        //            fail("Failed to open temporary file.");
+        //        });
+        //    });
+        //}, function() {
+        //    fail("Failed to get temporary file system.");
+        //});
 
-        var ft = new FileTransfer();
-        ft.upload(fileURL, res, win, fail, options);
-        // wachten op bevestiging + naam gebruiker
-        // gebruiker toevoegen
-        // bevestiging succes
         return this;
     }
 

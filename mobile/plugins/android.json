@@ -56,13 +56,12 @@
         "org.apache.cordova.statusbar": {
             "PACKAGE_NAME": "com.deloitte.mobauth"
         },
+        "org.apache.cordova.file": {
+            "PACKAGE_NAME": "com.deloitte.mobauth"
+        },
         "org.apache.cordova.file-transfer": {
             "PACKAGE_NAME": "com.deloitte.mobauth"
         }
     },
-    "dependent_plugins": {
-        "org.apache.cordova.file": {
-            "PACKAGE_NAME": "com.deloitte.mobauth"
-        }
-    }
+    "dependent_plugins": {}
 }
