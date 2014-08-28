@@ -9,7 +9,12 @@
 #  updated_at :datetime
 #
 
+require 'base64'
+require 'securerandom'
+
 class Token < ActiveRecord::Base
+
+  include Rails.application.routes.url_helpers
 
   # relations
   has_one :certificate
@@ -27,17 +32,19 @@ class Token < ActiveRecord::Base
     self.created_at > 5.minutes.ago
   end
 
-  def to_qr
-    RQRCode::QRCode.new code, size: 4, level: :h
-    # TODO make it a link to this server, so apps shouldn't be modified on
-    # server change.
+  def as_str(host)
+    "#{Base64.encode64(certificates_url(host: host))} #{code}"
+  end
+
+  def as_qr(host)
+    RQRCode::QRCode.new self.as_str(host), size: 4, level: :h
   end
 
   protected
 
   def generate_code
     # generate code automatically on creation.
-    self.code ||= SecureRandom.urlsafe_base64(10)
+    self.code ||= SecureRandom.base64(10)
   end
 
 end
