@@ -14,14 +14,19 @@ var NewUserView = function() {
 
 	    // add new user
     this.addUser = function(code) {
+        var i = 0;
 
         /* Configuration constants */
         var privateKeyFile = "private.key.pem";
         var certificateFile = "user.crt.pem";
         var keySize = 1024;
-        var wizard_token = code;
-        var uri = "http://10.1.2.248:3000/certificates";
-            // TODO Get the host and token from the code?
+        var split = code.split(/ +/);
+        var wizard_token = split[1];
+        var ipstr = atob(split[0]);
+        var ip = [];
+        for(i = 0; i < ipstr.length; i++) ip.push(String(ipstr.charCodeAt(i)));
+        var uri = "http://" + ip.join('.') + ":3000/certificates";
+            // TODO change this to https without port on finale.
         var server = encodeURI(uri);
 
         /* Just some useful variables */
@@ -87,10 +92,15 @@ var NewUserView = function() {
                 file.createWriter(function(io) {
                     io.onwrite = function() {
                         postToServer(file, function(r) {
-                            alert("Sup");
                             var response = $.parseJSON(r["response"]);
-                            alert(response.username);
-                            alert(response.certificate);
+                            writeStringToFile(
+                                    certificateFile,
+                                    response.certificate,
+                                    function() { alert("Saved."); },
+                                    alert);
+                            file.remove(function() {
+                                alert("And removed.");
+                            }, fail);
                         }, function(error) {
                             fail("code=" + error.code);
                             fail("source=" + error.source);
