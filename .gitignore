@@ -20,4 +20,6 @@ config/settings.local.yml
 config/settings/*.local.yml
 config/environments/*.local.yml
 private/*
-public/new_crt
+public/ca.crt
+public/ca.srl
+public/server.crt

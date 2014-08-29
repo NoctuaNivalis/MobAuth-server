@@ -23,7 +23,7 @@ Our config difference with the example online:
 
         location / {
             root /path/to/rails/app/dir/MobAuth-server/public;
-            passenger_enable on;
+            passenger_enabled on;
             rails_env development;
         }
     }
