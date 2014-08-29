@@ -40,7 +40,7 @@ class Token < ActiveRecord::Base
   end
 
   def as_qr(host)
-    RQRCode::QRCode.new self.as_str(host), size: 6, level: :h
+    RQRCode::QRCode.new self.as_str(host), size: 4, level: :h
   end
 
   protected
