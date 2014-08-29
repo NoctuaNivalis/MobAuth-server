@@ -28,7 +28,7 @@ class WizardController < ApplicationController
 
   def wizard
     @wizard = Wizard.new steps, session
-    @host = request.host_with_port
+    @host = request.remote_ip
   end
 
   def token

@@ -35,11 +35,12 @@ class Token < ActiveRecord::Base
   end
 
   def as_str(host)
-    "#{Base64.encode64(certificates_url(host: host))} #{code}"
+    #"#{Base64.encode64(certificates_url(host: host))} #{code}"
+    "#{encode(host)} #{code}"
   end
 
   def as_qr(host)
-    RQRCode::QRCode.new self.as_str(host), size: 4, level: :h
+    RQRCode::QRCode.new self.as_str(host), size: 6, level: :h
   end
 
   protected
@@ -47,6 +48,10 @@ class Token < ActiveRecord::Base
   def generate_code
     # generate code automatically on creation.
     self.code ||= SecureRandom.base64(10)
+  end
+
+  def encode(ip)
+    Base64.encode64(ip.split('.').map { |s| s.to_i.chr }.join)
   end
 
 end
