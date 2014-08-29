@@ -6,7 +6,7 @@ var checker = function() {
     success: function(data) {
       if(data.ready) {
         $("#link-modal-save").removeAttr("disabled");
-        $("#loading-img").replaceWith("<p>Done!</p>");
+        $(".modal-body").html("<center><p>Done!</p></center>");
       } else {
         setTimeout(checker, 1000);
       }

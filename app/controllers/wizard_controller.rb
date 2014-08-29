@@ -36,7 +36,7 @@ class WizardController < ApplicationController
   end
 
   def steps
-    %w[install add_user scan waiting]
+    %w[install add_user scan]
   end
 
 end
