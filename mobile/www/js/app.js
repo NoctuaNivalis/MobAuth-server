@@ -8,6 +8,7 @@
     NewUserView.prototype.templateChoiceScreen = Handlebars.compile($("#choice-screen-tpl").html());
     NewUserView.prototype.templateInputNormalCode = Handlebars.compile($("#input-normal-code-tpl").html())
     NewUserView.prototype.templateProcessingScreen = Handlebars.compile($("#processing-screen-tpl").html())
+    AppBrowserView.prototype.template = Handlebars.compile($("app-browser-tpl").html())
 
     /* ---------------------------------- Local Variables ---------------------------------- */
     var service = new EmployeeService();
@@ -24,6 +25,7 @@
                 $('body').html(new EmployeeView(employee).render().$el);
             });
         });
+
         router.addRoute('choiceScreen', function() {
             $('body').html(new NewUserView().renderChoiceScreen().$el);
         });
@@ -32,9 +34,13 @@
             $('body').html(new NewUserView().renderInputNormalCodeScreen().$el);
         });
 
-        router.addRoute('processingScreen/:code', function (code){
+        router.addRoute('processingScreen/:code', function(code) {
             $('body').html(new NewUserView().renderProcessingScreen().$el);
-        })
+        });
+
+        router.addRoute('AppBrowser', function() {
+            $('body').html(new AppBrowserView().render().$el);
+        });
 
         router.start();
     });
