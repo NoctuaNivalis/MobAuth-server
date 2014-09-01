@@ -24,11 +24,9 @@
             {{#each this}}
             <li class="table-view-cell media">
                 <a href="#users/{{ id }}">
-                    <img class="media-object pull-left" src="assets/pics/{{pic}}">
-                    <div class="media-body">
-                        {{firstName}} {{lastName}}
-                        <p>{{title}}</p>
-                    </div>
+                    <span class="media-object pull-left icon icon-person"></span>
+                        {{userName}}
+                        <p>Click to see extra information</p>
                 </a>
             </li>
             {{/each}}
@@ -46,49 +44,27 @@
             <div class="card">
                 <ul class="table-view">
                     <li class="table-view-cell media">
-                        <img class="media-object pull-left emp-pic" src="assets/pics/{{pic}}">
+                        <span class="media-object pull-left icon icon-person"></span>
                         <div class="media-body">
-                            {{ firstName }} {{ lastName }}
-                            <p>{{ title }}</p>
+                            {{ userName }}
                         </div>
                     </li>
                     <li class="table-view-cell media">
-                        <a href="tel:{{ officePhone }}" class="push-right">
-                            <span class="media-object pull-left icon icon-call"></span>
+                            <span class="media-object pull-left icon icon-pages"></span>
                             <div class="media-body">
-                                Call Office
-                                <p>{{ officePhone }}</p>
+                                Certificate
+                                <p>{{ certificate }}</p>
                             </div>
                         </a>
                     </li>
                     <li class="table-view-cell media">
-                        <a href="tel:{{ cellPhone }}" class="push-right">
-                            <span class="media-object pull-left icon icon-call"></span>
+                            <span class="media-object pull-left icon icon-pages"></span>
                             <div class="media-body">
-                                Call Cell
-                                <p>{{ cellPhone }}</p>
+                                Private key
+                                <p>{{ private_key }}</p>
                             </div>
                         </a>
                     </li>
-                    <li class="table-view-cell media">
-                        <a href="sms:{{ cellPhone }}" class="push-right">
-                            <span class="media-object pull-left icon icon-sms"></span>
-                            <div class="media-body">
-                                SMS
-                                <p>{{ cellPhone }}</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="table-view-cell media">
-                        <a href="mailto:{{ email }}" class="push-right">
-                            <span class="media-object pull-left icon icon-mail"></span>
-                            <div class="media-body">
-                                Email
-                                <p>{{ email }}</p>
-                            </div>
-                        </a>
-                    </li>
-
                 </ul>
             </div>
         </div>
