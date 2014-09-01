@@ -39,13 +39,13 @@ var UserService = function() {
         return deferred.promise();
     }
 
-    this.addUser = function(username, certificate) {	//probably also add keyfilename
+    this.addUser = function(username, certificate, privateKey) {
     	var deferred = $.Deferred();
     	var users = JSON.parse(window.localStorage.getItem("users"));
     	users[users.length] = {"id": users.length+1,
     						 	"userName": username,
     						 	"certificate" : certificate,
-    						 	"private_key": "not_yet_impl"};
+    						 	"private_key": privateKey};
     	window.localStorage.setItem("users", JSON.stringify(users));
     	deferred.resolve();
         return deferred.promise();

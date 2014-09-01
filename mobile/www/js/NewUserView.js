@@ -12,12 +12,11 @@ var NewUserView = function(service) {
 	}
 
 	    // add new user
-    this.addUser = function(code) {
+    this.addUser = function(code) { //TODO write to correct directory (works for android atm but ios? it has no/files)
         var i = 0;
-        service.addUser("louis","test");
         /* Configuration constants */
-        var privateKeyFile = "private.key.pem";
-        var certificateFile = "user.crt.pem";
+        var privateKeyFile = ".key.pem";
+        var certificateFile = ".crt.pem";
         var keySize = 1024;
         var split = code.split(/ +/);
         var wizard_token = split[1];
@@ -42,8 +41,8 @@ var NewUserView = function(service) {
 
         /* Write a file in the given directory. */
         var writeStringToFile = function(file, string, success, fail) {
-            window.resolveLocalFileSystemURI(cordova.file.applicationStorageDirectory, function(root) {
-                root.getDirectory("files", opts, function(folder) {
+            window.resolveLocalFileSystemURI(cordova.file.applicationStorageDirectory, function(root) {//TODO try to change this to cordova.file.dataDirectory
+                root.getDirectory("files", opts, function(folder) {                                    //TODO this line will not be needed then, but replace (in line below) folder to root
                     folder.getFile(file, opts, function(file_) {
                         file_.createWriter(function(io) {
                             io.onwrite = success;
@@ -61,9 +60,6 @@ var NewUserView = function(service) {
                 fail("Failed to get file system.");
             });
         };
-
-        /* Writing the private key. */
-        writeStringToFile(privateKeyFile, privPem, function() {}, alert);
 
         /* Creating the certificate signing request. */
         var csr = forge.pki.createCertificationRequest();
@@ -92,15 +88,15 @@ var NewUserView = function(service) {
                     io.onwrite = function() {
                         postToServer(file, function(r) {
                             var response = $.parseJSON(r["response"]);
-                            writeStringToFile(
-                                    certificateFile,
-                                    response.certificate,
-                                    function() { alert("Saved."); },
-                                    alert);
+                            var username = response.username;
+                            // save the certificate in username.crt.pem
+                            writeStringToFile(username+certificateFile, response.certificate, function() { alert("Saved."); }, alert);
+                            // save the private key in username.key.pem
+                            writeStringToFile(username+privateKeyFile, privPem, function() {}, alert);
                             file.remove(function() {
                                 alert("And removed.");
                             }, fail);
-                            service.addUser(response.username, response.certificate);
+                            service.addUser(username, username+certificateFile, username+privateKeyFile);
                         }, function(error) {
                             fail("code=" + error.code);
                             fail("source=" + error.source);
