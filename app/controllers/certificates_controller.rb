@@ -6,7 +6,7 @@ class CertificatesController < ApplicationController
   def create
     begin
       crs_file = params.require(:csr)
-      crt = CertificateAuthority.sign(crs_file)
+      crt = CertificateAuthority.sign(crs_file.read, request.host_with_port)
     rescue ActionController::ParameterMissing => e
       render json: { error: e.message }, status: 400
     rescue CertificateAuthority::InvalidCSR => e
@@ -16,8 +16,11 @@ class CertificatesController < ApplicationController
       logger.debug e.backtrace.join "\n"
       render json: { error: e.message }, status: 400
     else
-      @token.update! certificate: crt.to_pem
-      render json { certificate: crt.to_pem , username: User.find_by(id: session[:remember_token])}, status: 200
+      @token.update! certificate_id: crt.id
+      render json: {
+        username: @token.user.name,
+        certificate: crt.crt.to_pem
+      }
     end
   end
 

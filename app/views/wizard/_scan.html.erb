@@ -1,7 +1,7 @@
 <p>Please insert following token, or scan the QR code.</p>
-<pre><%= @token.code %></pre>
+<pre><%= @token.as_str(@host) %></pre>
 <center>
-  <% qr = @token.to_qr %>
+  <% qr = @token.as_qr(@host) %>
   <table class="qr-code">
     <% qr.modules.each_index do |x| %>
       <tr>
@@ -16,3 +16,6 @@
     <% end %>
   </table>
 </center>
+<%= javascript_tag do %>
+  <%= render 'check_ready' %>
+<% end %>

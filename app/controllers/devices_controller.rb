@@ -12,7 +12,7 @@ class DevicesController < ApplicationController
   def create
     @device = @user.devices.new params.require(:device).permit(:name)
     token = Token.find_by_code session[:wizard_token]
-    @device.certificate = token.certificate
+    @device.certificate = Certificate.find(token.certificate_id)
     token.destroy
     @device.save
     errors_to_flash @device
@@ -27,6 +27,7 @@ class DevicesController < ApplicationController
   end
     
   def destroy
+    @device.certificate.revoke
     @device.destroy
     flash.now[:success] = "Device unlinked and removed."
   end

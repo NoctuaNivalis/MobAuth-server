@@ -16,12 +16,6 @@ intermediate:
   email:        ""
   key_size:     4096
   valid_for:    600 # days
-  old_files:
-    key:        "<%= Rails.root %>/private/old_key" # passphrase set in setting.local.yml
-    crt:        "<%= Rails.root %>/public/old_crt"
-  new_files:
-    key:        "<%= Rails.root %>/private/new_key" # passphrase set in setting.local.yml
-    crt:        "<%= Rails.root %>/public/new_crt"
 
 # Options for the client certificate.
 client_crt:

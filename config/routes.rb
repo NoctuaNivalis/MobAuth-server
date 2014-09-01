@@ -34,6 +34,8 @@ Rails.application.routes.draw do
     get 'check'
   end
 
+  resources :crls, only: [:show]
+
   #get 'steps/start', to: 'steps#start'
   #get 'steps/next', to: 'steps#next'
   #get 'steps/previous', to: 'steps#previous'
