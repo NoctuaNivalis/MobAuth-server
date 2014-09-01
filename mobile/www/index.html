@@ -19,11 +19,11 @@
         </div>
     </script>
 
-    <script id="employee-list-tpl" type="text/template">
+    <script id="user-list-tpl" type="text/template">
         <ul class="table-view">
             {{#each this}}
             <li class="table-view-cell media">
-                <a href="#employees/{{ id }}">
+                <a href="#users/{{ id }}">
                     <img class="media-object pull-left" src="assets/pics/{{pic}}">
                     <div class="media-body">
                         {{firstName}} {{lastName}}
@@ -35,12 +35,12 @@
         </ul>
     </script>
 
-    <script id="employee-tpl" type="text/template">
+    <script id="user-tpl" type="text/template">
         <header class="bar bar-nav">
             <a class="btn btn-link btn-nav pull-left" href="#">
                 <span class="icon icon-left-nav"></span>
             </a>
-            <h1 class="title">Employee</h1>
+            <h1 class="title">User</h1>
         </header>
         <div class="content">
             <div class="card">
@@ -96,7 +96,7 @@
 
     <script id="choice-screen-tpl" type="text/template">
         <a class="btn btn-positive btn-block" href="#inputNormalCode">Type in the code</a>
-        <a class="btn btn-positive btn-block">Scan the QR code</a>
+        <a class="btn btn-positive btn-block" href="#appBrowser">Scan the QR code</a>
         <a class="btn btn-negative btn-block">Cancel</a>
     </script>
 
@@ -128,12 +128,12 @@
     <script src="lib/forge.min.js"></script>
 
     <!-- services -->
-    <script src="js/services/memory/EmployeeService.js"></script>
+    <script src="js/UserService.js"></script>
 
     <!-- views -->
-    <script src="js/EmployeeListView.js"></script>
+    <script src="js/UserListView.js"></script>
     <script src="js/HomeView.js"></script>
-    <script src="js/EmployeeView.js"></script>
+    <script src="js/UserView.js"></script>
     <script src="js/NewUserView.js"></script>
     <script src="js/AppBrowserView.js"></script>
 

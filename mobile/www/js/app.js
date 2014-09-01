@@ -3,15 +3,15 @@
 
     /* ------------------------------------- Templates ------------------------------------- */
     HomeView.prototype.template = Handlebars.compile($("#home-tpl").html());
-    EmployeeListView.prototype.template = Handlebars.compile($("#employee-list-tpl").html());
-    EmployeeView.prototype.template = Handlebars.compile($("#employee-tpl").html());
+    UserListView.prototype.template = Handlebars.compile($("#user-list-tpl").html());
+    UserView.prototype.template = Handlebars.compile($("#user-tpl").html());
     NewUserView.prototype.templateChoiceScreen = Handlebars.compile($("#choice-screen-tpl").html());
-    NewUserView.prototype.templateInputNormalCode = Handlebars.compile($("#input-normal-code-tpl").html())
-    NewUserView.prototype.templateProcessingScreen = Handlebars.compile($("#processing-screen-tpl").html())
-    AppBrowserView.prototype.template = Handlebars.compile($("app-browser-tpl").html())
+    NewUserView.prototype.templateInputNormalCode = Handlebars.compile($("#input-normal-code-tpl").html());
+    NewUserView.prototype.templateProcessingScreen = Handlebars.compile($("#processing-screen-tpl").html());
+    AppBrowserView.prototype.template = Handlebars.compile($("#app-browser-tpl").html());
 
     /* ---------------------------------- Local Variables ---------------------------------- */
-    var service = new EmployeeService();
+    var service = new UserService();
 
     /* -------------------------------------- Routing -------------------------------------- */
     service.initialize().done(function () {
@@ -20,9 +20,9 @@
             $('body').html(new HomeView(service).render().$el);
         });
 
-        router.addRoute('employees/:id', function(id) {
-            service.findById(parseInt(id)).done(function(employee) {
-                $('body').html(new EmployeeView(employee).render().$el);
+        router.addRoute('users/:id', function(id) {
+            service.findById(parseInt(id)).done(function(user) {
+                $('body').html(new UserView(user).render().$el);
             });
         });
 
@@ -38,7 +38,7 @@
             $('body').html(new NewUserView().renderProcessingScreen().$el);
         });
 
-        router.addRoute('AppBrowser', function() {
+        router.addRoute('appBrowser', function() {
             $('body').html(new AppBrowserView().render().$el);
         });
 
