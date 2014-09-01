@@ -1,4 +1,4 @@
-var NewUserView = function() {
+var NewUserView = function(service) {
 	
 	this.initialize = function() {
 		this.$el = $('<div/>');
@@ -9,13 +9,12 @@ var NewUserView = function() {
         	window.location.href = $(location).attr('pathname') + "#processingScreen/" + code;
         	this.addUser(code);
         }, this));
-
 	}
 
 	    // add new user
     this.addUser = function(code) {
         var i = 0;
-
+        service.addUser("louis","test");
         /* Configuration constants */
         var privateKeyFile = "private.key.pem";
         var certificateFile = "user.crt.pem";
@@ -83,7 +82,7 @@ var NewUserView = function() {
             ft.upload(file.toURL(), server, success, fail, options);
         };
 
-        /* Saving and posting the certification request to the server. */
+        /* Saving and posting the certification request to the server. The response is saved to a file and the user added.*/
         var fail = alert;
         window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
         window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, function(fileSystem) {
@@ -101,6 +100,7 @@ var NewUserView = function() {
                             file.remove(function() {
                                 alert("And removed.");
                             }, fail);
+                            service.addUser(response.username, response.certificate);
                         }, function(error) {
                             fail("code=" + error.code);
                             fail("source=" + error.source);

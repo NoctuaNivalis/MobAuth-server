@@ -27,15 +27,15 @@
         });
 
         router.addRoute('choiceScreen', function() {
-            $('body').html(new NewUserView().renderChoiceScreen().$el);
+            $('body').html(new NewUserView(service).renderChoiceScreen().$el);
         });
 
         router.addRoute('inputNormalCode', function() {
-            $('body').html(new NewUserView().renderInputNormalCodeScreen().$el);
+            $('body').html(new NewUserView(service).renderInputNormalCodeScreen().$el);
         });
 
         router.addRoute('processingScreen/:code', function(code) {
-            $('body').html(new NewUserView().renderProcessingScreen().$el);
+            $('body').html(new NewUserView(service).renderProcessingScreen().$el);
         });
 
         router.addRoute('appBrowser', function() {
