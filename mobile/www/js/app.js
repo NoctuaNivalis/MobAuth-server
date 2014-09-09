@@ -1,3 +1,7 @@
+// we need this globally
+var service = new UserService();
+
+// functions for the QUIT button
 function showConfirm() {
     navigator.notification.confirm(
         'Do you really want to exit?',  // message
@@ -13,6 +17,27 @@ function exitFromApp(buttonIndex) {
         navigator.app.exitApp();
     }
 };
+// functions for the remove user buttons
+function removeUser(username) {
+    navigator.notification.confirm(
+        'Are you sure you want to delete ' + username + '?',  // message
+        function(buttonIndex){
+            deleteUser(buttonIndex, username);
+        },              // callback to invoke with index of button pressed
+       'Delete user',            // title
+        'Cancel, I want to delete this user'         // buttonLabels
+    );
+    deleteUser(username);
+};
+
+function deleteUser(buttonIndex, username) {
+    if (buttonIndex==2){
+        var service = new UserService();
+        service.deleteUser(username).done(function(){
+            window.location.href = $(location).attr('pathname');
+        });
+    }
+};
 
 // We use an "Immediate Function" to initialize the application to avoid leaving anything behind in the global scope
 (function () {
@@ -23,11 +48,7 @@ function exitFromApp(buttonIndex) {
     UserView.prototype.template = Handlebars.compile($("#user-tpl").html());
     NewUserView.prototype.templateChoiceScreen = Handlebars.compile($("#choice-screen-tpl").html());
     NewUserView.prototype.templateInputNormalCode = Handlebars.compile($("#input-normal-code-tpl").html());
-    NewUserView.prototype.templateProcessingScreen = Handlebars.compile($("#processing-screen-tpl").html());
     AppBrowserView.prototype.template = Handlebars.compile($("#app-browser-tpl").html());
-
-    /* ---------------------------------- Local Variables ---------------------------------- */
-    var service = new UserService();
 
     /* -------------------------------------- Routing -------------------------------------- */
     service.initialize().done(function () {
@@ -48,10 +69,6 @@ function exitFromApp(buttonIndex) {
 
         router.addRoute('inputNormalCode', function() {
             $('body').html(new NewUserView(service).renderInputNormalCodeScreen().$el);
-        });
-
-        router.addRoute('processingScreen/:code', function(code) {
-            $('body').html(new NewUserView(service).renderProcessingScreen().$el);
         });
 
         router.addRoute('appBrowser', function() {

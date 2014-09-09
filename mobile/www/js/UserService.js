@@ -48,4 +48,18 @@ var UserService = function() {
     	deferred.resolve();
         return deferred.promise();
     }
+
+    this.deleteUser = function(username) {
+        var deferred = $.Deferred();
+        var users = JSON.parse(window.localStorage.getItem("users"));
+        for( i=0; i<users.length; i++) {
+            if (users[i].userName == username)
+                users.splice(i,1);
+        }
+
+        window.localStorage.setItem("users", JSON.stringify(users));
+        
+        deferred.resolve();
+        return deferred.promise();
+    }
 }
