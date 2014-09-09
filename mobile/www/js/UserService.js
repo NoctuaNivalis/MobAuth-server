@@ -3,13 +3,11 @@ var UserService = function() {
 	this.initialize = function() {
         // No Initialization required
         var deferred = $.Deferred();
-        window.localStorage.setItem("users", JSON.stringify(
-            [
-		        {"id": 1, "userName": "James", "certificate": "certificate1", "private_key": "key1"},
-		        {"id": 2, "userName": "Julie", "certificate": "certificate2", "private_key": "key2"},
-		        {"id": 3, "userName": "Eugene", "certificate": "certificate3", "private_key": "key3"}
-            ]
-        ));
+        if (window.localStorage.getItem("users") == null) {
+            window.localStorage.setItem("users", JSON.stringify(
+                []
+            ));
+        }
         deferred.resolve();
         return deferred.promise();
     }
