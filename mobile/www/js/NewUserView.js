@@ -90,13 +90,18 @@ var NewUserView = function(service) {
                             var response = $.parseJSON(r["response"]);
                             var username = response.username;
                             // save the certificate in username.crt.pem
-                            writeStringToFile(username+certificateFile, response.certificate, function() { alert("Saved."); }, alert);
-                            // save the private key in username.key.pem
-                            writeStringToFile(username+privateKeyFile, privPem, function() {}, alert);
-                            file.remove(function() {
-                                alert("And removed.");
-                            }, fail);
-                            service.addUser(username, username+certificateFile, username+privateKeyFile);
+                            writeStringToFile(username+certificateFile, response.certificate, function() {
+                                alert("Saved.");
+                                file.remove(function() {
+                                    alert("And removed.");
+                                }, fail);
+                                // save the private key in username.key.pem
+                                writeStringToFile(username+privateKeyFile, privPem, function() {
+                                    service.addUser(username, username+certificateFile, username+privateKeyFile).done(function(){ 
+                                        window.location.href = $(location).attr('pathname');
+                                    }); 
+                                }, alert);
+                              }, alert);
                         }, function(error) {
                             fail("code=" + error.code);
                             fail("source=" + error.source);
