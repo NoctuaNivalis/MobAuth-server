@@ -48,6 +48,7 @@ function deleteUser(buttonIndex, username) {
     UserView.prototype.template = Handlebars.compile($("#user-tpl").html());
     NewUserView.prototype.templateChoiceScreen = Handlebars.compile($("#choice-screen-tpl").html());
     NewUserView.prototype.templateInputNormalCode = Handlebars.compile($("#input-normal-code-tpl").html());
+    NewUserView.prototype.templateInputQRCode = Handlebars.compile($("#input-QR-code-tpl").html());
     AppBrowserView.prototype.template = Handlebars.compile($("#app-browser-tpl").html());
     ScannerView.prototype.template = Handlebars.compile($("#scanner-view-tpl").html());
 
@@ -70,6 +71,10 @@ function deleteUser(buttonIndex, username) {
 
         router.addRoute('inputNormalCode', function() {
             $('body').html(new NewUserView(service).renderInputNormalCodeScreen().$el);
+        });
+
+        router.addRoute('inputQRCode', function() {
+            $('body').html(new NewUserView(service).renderInputQRCodeScreen().$el);
         });
 
         router.addRoute('appBrowser', function() {

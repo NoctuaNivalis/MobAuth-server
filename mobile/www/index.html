@@ -85,7 +85,7 @@
         <div class="content">
             <a class="btn btn-primary btn-block" href="#inputNormalCode">Type in the code</a>
             <a class="btn btn-block" href="#scannerView">Scan the QR code</a>
-            <a class="btn btn-negative btn-block">Cancel</a>
+            <a class="btn btn-negative btn-block" href="#">Cancel</a>
         </div>
     </script>
 
@@ -99,6 +99,25 @@
             <form>
               <input type="text" placeholder="Code" id="normalCodeInput">
               <a class="btn btn-primary btn-block" id="normalCode">Submit</a>
+              <a class="btn btn-negative btn-block" href="#">Cancel</a>
+            </form>
+            <div id="load_gif" style="display:none">
+                <img media="screen" class="media-object" src="assets/ajax-loader.gif">
+            </div>
+        </div>
+    </script>
+
+    <script id="input-QR-code-tpl" type="text/template">
+        <header class="bar bar-nav navbar">
+            <div class="navbar-inner">
+            </div>
+            <h3>Paste your scanned code</h3>
+        </header>
+        <div class="content">
+            <form>
+              <input type="text" placeholder="Code" id="normalCodeInput">
+              <a class="btn btn-primary btn-block" id="normalCode">Submit</a>
+              <a class="btn btn-negative btn-block" href="#">Cancel</a>
             </form>
             <div id="load_gif" style="display:none">
                 <img media="screen" class="media-object" src="assets/ajax-loader.gif">
@@ -107,11 +126,9 @@
     </script>
 
     <script id="app-browser-tpl" type="text/template">
-
     </script>
 
     <script id="scanner-view-tpl" type="text/template">
-
     </script>
 
     <script src="cordova.js"></script>

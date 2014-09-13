@@ -132,5 +132,10 @@ var NewUserView = function(service) {
 		return this;
 	}
 
+    this.renderInputQRCodeScreen = function() {
+        this.$el.html(this.templateInputQRCode());
+        return this;
+    }
+
 	this.initialize();
 }

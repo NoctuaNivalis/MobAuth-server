@@ -8,16 +8,16 @@ var ScannerView = function () {
     this.render = function() {
         cordova.plugins.barcodeScanner.scan(
             function(result) {
-                alert("we got a barcode\n" +
-                    "result: " + result.text + "\n" +
-                    "format: " + result.format + "\n" +
-                    "cancelled " + result.cancelled);
+                window.location.href = $(location).attr('pathname') + "#inputQRCode";
+                window.document.getElementById("normalCodeInput").value = result.text;
+                window.document.getElementById("normalCodeInput").placeholder = result.text;
+                //$("#normalCodeInput").val(result.text);
             },
             function(error) {
                 alert("scanning failed: " + error);
+                window.location.href = $(location).attr('pathname');
             }
         );
-        this.$el.html(this.template());
         return this;
     };
 
