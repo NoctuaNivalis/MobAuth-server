@@ -14,4 +14,3 @@ var AppBrowserView = function () {
     this.initialize();
 
 }
-
