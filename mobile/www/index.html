@@ -9,8 +9,10 @@
 <body>
 
     <script id="home-tpl" type="text/template">
-        <header class="bar bar-nav">
-            <h1 class="title">Users</h1>
+        <header class="bar bar-nav navbar">
+            <div class="navbar-inner">
+            </div>
+            <h2>List of users</h2>
         </header>
         <div class="content"></div>
         <div class="bar bar-standard bar-footer-secondary">
@@ -81,7 +83,7 @@
     </script>
 
     <script id="input-normal-code-tpl" type="text/template">
-        <form action="#processingScreen/">
+        <form>
           <input type="text" placeholder="Code" id="normalCodeInput">
           <a class="btn btn-positive btn-block" id="normalCode">Submit code</a>
         </form>

@@ -4,9 +4,9 @@ var NewUserView = function(service) {
 		this.$el = $('<div/>');
         this.renderChoiceScreen();
         this.$el.on('click',"#normalCode", jQuery.proxy(function (e) {
+            $("#load_gif").show();
         	e.preventDefault();
         	var code = $('#normalCodeInput').val();
-        	window.location.href = $(location).attr('pathname') + "#processingScreen/" + code;
         	this.addUser(code);
         }, this));
 	}
@@ -129,11 +129,6 @@ var NewUserView = function(service) {
 
 	this.renderInputNormalCodeScreen = function() {
 		this.$el.html(this.templateInputNormalCode());
-		return this;
-	}
-
-	this.renderProcessingScreen = function() {
-		this.$el.html(this.templateProcessingScreen());
 		return this;
 	}
 
