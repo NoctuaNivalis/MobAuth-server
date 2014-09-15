@@ -20,7 +20,7 @@ class IntermediateCa < ActiveRecord::Base
     self.crt.not.after < Time.now
   end
 
-  def sign(csr, host)
+  def sign(csr, host, username)
     # Checking the csr's signature.
     csr = OpenSSL::X509::Request.new csr
     raise InvalidCSR unless csr.verify csr.public_key
@@ -33,7 +33,8 @@ class IntermediateCa < ActiveRecord::Base
     crt.version = 2
     crt.not_before = time
     crt.not_after = Time.now + Settings.client_crt.valid_for.days
-    crt.subject = csr.subject
+    name = OpenSSL::X509::Name.new [['CN', username]]
+    crt.subject = name
     crt.public_key = csr.public_key
     crt.issuer = self.crt.subject
 

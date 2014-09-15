@@ -6,7 +6,7 @@ class CertificatesController < ApplicationController
   def create
     begin
       crs_file = params.require(:csr)
-      crt = CertificateAuthority.sign(crs_file.read, request.host_with_port)
+      crt = CertificateAuthority.sign(crs_file.read, request.host_with_port, @token.user.name)
     rescue ActionController::ParameterMissing => e
       render json: { error: e.message }, status: 400
     rescue CertificateAuthority::InvalidCSR => e
