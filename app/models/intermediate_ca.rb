@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: intermediate_cas
+#
+#  id          :integer          not null, primary key
+#  keypair     :binary
+#  certificate :binary
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 require 'openssl'
 
 class IntermediateCa < ActiveRecord::Base

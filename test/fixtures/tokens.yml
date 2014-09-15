@@ -2,11 +2,12 @@
 #
 # Table name: tokens
 #
-#  id         :integer          not null, primary key
-#  code       :string(255)      not null
-#  device_id  :integer          not null
-#  created_at :datetime
-#  updated_at :datetime
+#  id             :integer          not null, primary key
+#  code           :string(255)      not null
+#  created_at     :datetime
+#  updated_at     :datetime
+#  certificate_id :integer
+#  user_id        :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

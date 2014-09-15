@@ -1,7 +1,12 @@
 class CertificatesController < ApplicationController
 
   skip_before_action :verify_authenticity_token, only: [:create]
-  before_action :check_token
+  before_action :check_token, except: [:auth]
+
+  def auth
+    @skip_header = true
+  end
+  
 
   def create
     begin

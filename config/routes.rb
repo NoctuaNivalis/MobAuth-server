@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
+  match '/clientauth', to: 'certificates#auth',      via: 'get'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

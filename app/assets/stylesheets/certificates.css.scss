@@ -1,3 +1,22 @@
 // Place all the styles related to the Certificates controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.fakesite {
+	background: image-url("screenshot_Egov.png") no-repeat center;
+	background-size: 90.5% 100%;
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	margin-top: -4px;
+	margin-left: -375px;
+	top: 0px;
+}
+
+.test {
+	background-color: red !important;
+	margin-top: 275px;
+	margin-left: 1370px;
+	height: 30px;
+	width: 140px;
+}

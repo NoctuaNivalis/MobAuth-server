@@ -2,11 +2,12 @@
 #
 # Table name: tokens
 #
-#  id         :integer          not null, primary key
-#  code       :string(255)      not null
-#  device_id  :integer          not null
-#  created_at :datetime
-#  updated_at :datetime
+#  id             :integer          not null, primary key
+#  code           :string(255)      not null
+#  created_at     :datetime
+#  updated_at     :datetime
+#  certificate_id :integer
+#  user_id        :integer
 #
 
 require 'base64'
@@ -35,6 +36,7 @@ class Token < ActiveRecord::Base
   end
 
   def as_str(host)
+    host ="192.168.43.118"
     #"#{Base64.encode64(certificates_url(host: host))} #{code}"
     "#{encode(host)} #{code}"
   end
