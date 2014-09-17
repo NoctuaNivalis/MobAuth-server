@@ -170,6 +170,11 @@ class IntermediateCa < ActiveRecord::Base
     self.key = im_key
     self.crt = im_crt
 
+    # write the intermediate crt to a file
+    File.open("public/intermediate.crt", 'wb') do |output|
+      output.write im_crt
+    end
+
   end
 
 end

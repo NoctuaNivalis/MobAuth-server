@@ -2,8 +2,8 @@
 # The location of the public and private key of the CA
 # Passphrases are to be stored in 'config/settings.local.yml' as
 # 'ca_passphrase'.
-key_file: "<%= ENV['HOME'] %>/private/Fedict-IAM-INT-MobileAuthAppPOCCA.key.pem"
-crt_file: "<%= ENV['HOME'] %>/public/Fedict-IAM-INT-MobileAuthAppPOCCA.crt.pem"
+key_file: "<%= ENV['HOME'] %>/Documents/MobAuth-Server/private/Fedict-IAM-INT-MobileAuthAppPOCCA.key.pem"
+crt_file: "<%= ENV['HOME'] %>/Documents/MobAuth-Server/public/Fedict-IAM-INT-MobileAuthAppPOCCA.crt.pem"
 
 # Options for the intermediate certificate authority.
 intermediate:
