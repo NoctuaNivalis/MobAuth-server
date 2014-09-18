@@ -1,5 +1,12 @@
 <div class="fakesite">
 	<div class="test">
+
+		<% if @host_test != 'no' %>
+		 <div> <%= @host_test %></div>
+		<% else %>
+		 <div>Something went wrong</div>
+		<% end %>
+
 	</div>
 </div>
 

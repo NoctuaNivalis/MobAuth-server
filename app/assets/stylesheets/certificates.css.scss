@@ -3,20 +3,32 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .fakesite {
-	background: image-url("screenshot_Egov.png") no-repeat center;
-	background-size: 90.5% 100%;
+	background: image-url("screenshot_Egov.png") ;
+	background-repeat: no-repeat !important;
+
+	background-color: green !important;
+
+	position: absolute !important;
+
+	margin-left: -350px  !important;
+	width: 1800px !important;
+
+
+	/*background-size: 90.5% 100%;
 	height: 100%;
 	width: 100%;
 	position: fixed;
 	margin-top: -4px;
 	margin-left: -375px;
-	top: 0px;
+	top: 0px;*/
 }
 
 .test {
-	background-color: red !important;
-	margin-top: 275px;
-	margin-left: 1370px;
-	height: 30px;
-	width: 140px;
+	background-color: #888888 !important;
+	margin-top: 438px !important;
+	margin-left: 1345px !important;
+	height: 30px !important;
+	width: 130px !important;
+	color: white;
+	font-size: 210%;
 }

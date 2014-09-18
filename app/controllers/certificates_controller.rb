@@ -5,6 +5,13 @@ class CertificatesController < ApplicationController
 
   def auth
     @skip_header = true
+    @host_test = 'derp'
+    if request.headers.include?('HTTP_CLIENTSSLCN')
+        @host_test = request.headers['HTTP_CLIENTSSLCN'][request.headers['HTTP_CLIENTSSLCN'].index("/CN=")+4..-1]; #gets the part after \CN=
+    else
+        @host_test = 'no'
+    end
+
   end
   
 
