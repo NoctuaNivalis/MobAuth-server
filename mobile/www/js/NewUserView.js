@@ -39,7 +39,7 @@ var NewUserView = function(service) {
         var keypair = forge.pki.rsa.generateKeyPair({ bits: keySize });
         var privPem = forge.pki.privateKeyToPem(keypair.privateKey);
 
-        /* Write a file in the given directory. */
+        /* Write a file in the data directory (android data/data/com.deloite/mobauth/files/). */
         var writeStringToFile = function(file, string, success, fail) {
             window.resolveLocalFileSystemURI(cordova.file.applicationStorageDirectory, function(root) {//TODO try to change this to cordova.file.dataDirectory
                 root.getDirectory("files", opts, function(folder) {                                    //TODO this line will not be needed then, but replace (in line below) folder to root
@@ -55,6 +55,24 @@ var NewUserView = function(service) {
                     });
                 }, function() {
                     fail("Failed to get folder `files`.");
+                });
+            }, function() {
+                fail("Failed to get file system.");
+            });
+        };
+
+        /* Write a file to the external SD card (android sdcard/). */
+        var writeStringToFile_External = function(file, string, success, fail) {
+            window.resolveLocalFileSystemURI(cordova.file.externalRootDirectory, function(root) {
+                root.getFile(file, opts, function(file_) {
+                    file_.createWriter(function(io) {
+                        io.onwrite = success;
+                        io.write(string);
+                    }, function() {
+                        fail("Failed to write in " + file);
+                    });
+                }, function() {
+                    fail("Failed to get file: " + file);
                 });
             }, function() {
                 fail("Failed to get file system.");
@@ -91,15 +109,22 @@ var NewUserView = function(service) {
                             var username = response.username;
                             // save the certificate in username.crt.pem
                             writeStringToFile(username+certificateFile, response.certificate, function() {
-                                alert("Saved.");
                                 file.remove(function() {
-                                    alert("And removed.");
                                 }, fail);
                                 // save the private key in username.key.pem
                                 writeStringToFile(username+privateKeyFile, privPem, function() {
-                                    service.addUser(username, username+certificateFile, username+privateKeyFile).done(function(){ 
-                                        window.location.href = $(location).attr('pathname');
-                                    }); 
+
+                                    // create the p12 file, use PIN of eID as password (third arg) could be a possibility
+                                    // if you put null as third arg there is no password. Problem is my android won't install p12 without password
+                                    var p12Asn1 = forge.pkcs12.toPkcs12Asn1(keypair.privateKey, response.certificate, null);   
+                                    var p12 = forge.pkcs12.pkcs12FromAsn1(p12Asn1); 
+                 
+                                    // write the p12 to the external storage (for install later);      
+                                    writeStringToFile_External(username+".pfx", p12, function() {
+                                        service.addUser(username, username+certificateFile, username+privateKeyFile).done(function() { 
+                                            window.location.href = $(location).attr('pathname');
+                                        }); 
+                                    }, alert);                             
                                 }, alert);
                               }, alert);
                         }, function(error) {

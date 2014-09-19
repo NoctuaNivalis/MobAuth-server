@@ -6,7 +6,7 @@ var AppBrowserView = function () {
     };
 
     this.render = function() {
-        var ref = window.open('http://www.google.be','_blank','location=yes');
+        var ref = window.open('https://localhost:3000/clientauth','_system','location=yes');
         this.$el.html(this.template());
         return this;
     };

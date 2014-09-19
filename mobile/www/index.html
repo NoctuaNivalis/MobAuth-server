@@ -25,10 +25,10 @@
         <ul class="table-view">
             {{#each this}}
             <li class="table-view-cell media">
-                <a href="#users/{{ id }}">
+                <a href="#appBrowser">
                     <span class="media-object pull-left icon icon-person"></span>
                         {{userName}}
-                        <p>Click to see extra information</p>
+                        <p>Click to surf to the eGov site</p>
                 </a>
                 <a onclick="removeUser(&quot;{{userName}}&quot;);">
                     <span class="media-object pull-left icon icon-close"></span>
@@ -37,44 +37,7 @@
             </li>
             {{/each}}
         </ul>
-    </script>
-
-    <script id="user-tpl" type="text/template">
-        <header class="bar bar-nav">
-            <a class="btn btn-link btn-nav pull-left" href="#">
-                <span class="icon icon-left-nav"></span>
-            </a>
-            <h1 class="title">User</h1>
-        </header>
-        <div class="content">
-            <div class="card">
-                <ul class="table-view">
-                    <li class="table-view-cell media">
-                        <span class="media-object pull-left icon icon-person"></span>
-                        <div class="media-body">
-                            {{ userName }}
-                        </div>
-                    </li>
-                    <li class="table-view-cell media">
-                            <span class="media-object pull-left icon icon-pages"></span>
-                            <div class="media-body">
-                                Certificate
-                                <p>{{ certificate }}</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="table-view-cell media">
-                            <span class="media-object pull-left icon icon-pages"></span>
-                            <div class="media-body">
-                                Private key
-                                <p>{{ private_key }}</p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </script>    
+    </script>  
 
     <script id="choice-screen-tpl" type="text/template">
         <header class="bar bar-nav navbar">

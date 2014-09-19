@@ -45,7 +45,6 @@ function deleteUser(buttonIndex, username) {
     /* ------------------------------------- Templates ------------------------------------- */
     HomeView.prototype.template = Handlebars.compile($("#home-tpl").html());
     UserListView.prototype.template = Handlebars.compile($("#user-list-tpl").html());
-    UserView.prototype.template = Handlebars.compile($("#user-tpl").html());
     NewUserView.prototype.templateChoiceScreen = Handlebars.compile($("#choice-screen-tpl").html());
     NewUserView.prototype.templateInputNormalCode = Handlebars.compile($("#input-normal-code-tpl").html());
     NewUserView.prototype.templateInputQRCode = Handlebars.compile($("#input-QR-code-tpl").html());
