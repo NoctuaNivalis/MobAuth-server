@@ -1,6 +1,6 @@
-Server (Ruby on Rails with Nginx)
+----------------------------Server (Ruby on Rails with Nginx)
 
-Git, npm, ruby on rails
+---------Git, npm, ruby on rails
 
 $ sudo apt-get install git
 
@@ -19,7 +19,7 @@ $ bundle install
 
 (you will have to close and open the terminal again for the next step because he won't recognize rvmsudo yet)
 
-Nginx
+---------Nginx
 
 $ rvmsudo passenger-install-nginx-module
 
@@ -156,7 +156,7 @@ $ sudo nginx -s reload;
 
 (it might be needed to stop the nginx server and start it up again)
 
-Cordova
+----------------------------Cordova
 
 This installation can give a lot of issues, I personally had a lot of troubles (did 3 installations, 2 worked and one did not). Some stackoverflow posts suggest that the source of the problem is the following command
 
@@ -191,7 +191,7 @@ $ sudo npm install -g cordova
 
 Then it should work (try $ cordova)
 
-Android
+---------Android
 Download SDK-tools for Android (you can also download the ADT (android development tools bundle) but then you will have to reference to the sdk in that ADT folder): http://developer.android.com/sdk/installing/index.html 
 
 Put the unzipped tar.gz (unzip via $ tar vxzf sdk-tools-file.tar.gz) where you want it
@@ -270,7 +270,7 @@ From normal pc: $ cordova run android
 From virtual box: You will need VMware tools installed and then use shared folders to copy the apk to a shared folder
 (preferably Dropbox so you can download the file from dropbox, but you can also transmit it from the chosen folder through cable to your device)
 
-Client authentication voor nginx
+----------------------------Client authentication voor nginx
 
 Find the following in the nginx conf file
 
@@ -308,7 +308,7 @@ add
 
 proxy_set_header ClientSslCn $ssl_client_s_dn;
 
-generating the p12 in terminal (including password)
+----------------------------generating the p12 in terminal (including password)
 
 openssl pkcs12 -passout pass:test -export -out louisva.p12 -inkey nameofkey.key.pem -in nameofcertificate.crt.pem 
 
